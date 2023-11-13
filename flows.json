@@ -1,0 +1,650 @@
+[
+    {
+        "id": "68fd76ba2e5d1b23",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "20155e8f63836aa4",
+        "type": "serial in",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "serial": "6f5ab6f588415954",
+        "x": 70,
+        "y": 300,
+        "wires": [
+            [
+                "bd050e31871be585",
+                "1c7b64591fd53487"
+            ]
+        ]
+    },
+    {
+        "id": "bd050e31871be585",
+        "type": "function",
+        "z": "68fd76ba2e5d1b23",
+        "name": "ParsingData",
+        "func": "let y = 0;\nlet dt = [];\nlet i;\nfor (i = 1; i < msg.payload.length; i++)\n{\n    if((msg.payload[i]==\",\") || (msg.payload[i]==\"#\")){\n        y++;\n        dt[y]=\"\";\n    }\n    else\n    {\n        dt[y]=dt[y]+msg.payload[i];\n    }\n}\n\nmsg.payload=dt;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "009e98070de6863e",
+                "a185d8ff49a6f845",
+                "3a9578f094a2479a",
+                "03dffe541c754bea",
+                "58ceff7554863d31"
+            ]
+        ]
+    },
+    {
+        "id": "009e98070de6863e",
+        "type": "debug",
+        "z": "68fd76ba2e5d1b23",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8a4fab5ea37983ee",
+        "type": "ui_button",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "group": "2865e6ed54490fb3",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "START",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "aca2641903700f5b"
+            ]
+        ]
+    },
+    {
+        "id": "aca2641903700f5b",
+        "type": "serial out",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "serial": "6f5ab6f588415954",
+        "x": 250,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "a185d8ff49a6f845",
+        "type": "function",
+        "z": "68fd76ba2e5d1b23",
+        "name": "Suhu",
+        "func": "msg.payload = msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "2b27b6d3eff17ae8",
+                "477118295f986f2d"
+            ]
+        ]
+    },
+    {
+        "id": "3a9578f094a2479a",
+        "type": "function",
+        "z": "68fd76ba2e5d1b23",
+        "name": "Kelembaban",
+        "func": "msg.payload = msg.payload[2];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "b3d9c2ada1326c2a",
+                "dd7d308cd89dacb3"
+            ]
+        ]
+    },
+    {
+        "id": "03dffe541c754bea",
+        "type": "function",
+        "z": "68fd76ba2e5d1b23",
+        "name": "Cahaya",
+        "func": "msg.payload = msg.payload[3];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 340,
+        "wires": [
+            [
+                "5d53ec1ca32ac48d",
+                "61d52d8c6c9ee15d"
+            ]
+        ]
+    },
+    {
+        "id": "477118295f986f2d",
+        "type": "ui_gauge",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "group": "2865e6ed54490fb3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Celsius",
+        "label": "C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "400",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2b27b6d3eff17ae8",
+        "type": "ui_chart",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "group": "b78b1c4b9795d451",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Celsius",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "400",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 680,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd7d308cd89dacb3",
+        "type": "ui_gauge",
+        "z": "68fd76ba2e5d1b23",
+        "d": true,
+        "name": "",
+        "group": "2865e6ed54490fb3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Farenhite",
+        "label": "F",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b3d9c2ada1326c2a",
+        "type": "ui_chart",
+        "z": "68fd76ba2e5d1b23",
+        "d": true,
+        "name": "",
+        "group": "b78b1c4b9795d451",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "label": "Farenhite",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "1000",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 680,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "61d52d8c6c9ee15d",
+        "type": "ui_gauge",
+        "z": "68fd76ba2e5d1b23",
+        "d": true,
+        "name": "",
+        "group": "2865e6ed54490fb3",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Kelvin",
+        "label": "K",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "5d53ec1ca32ac48d",
+        "type": "ui_chart",
+        "z": "68fd76ba2e5d1b23",
+        "d": true,
+        "name": "",
+        "group": "b78b1c4b9795d451",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "label": "Kelvin",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "1000",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 670,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "56414d56d7989f1e",
+        "type": "ui_table",
+        "z": "68fd76ba2e5d1b23",
+        "group": "3b65c30c023e7274",
+        "name": "",
+        "order": 4,
+        "width": "10",
+        "height": "11",
+        "columns": [
+            {
+                "field": "Waktu",
+                "title": "Date/Time",
+                "width": "200",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "C",
+                "title": "C",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "F",
+                "title": "F",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "K",
+                "title": "K",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 830,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a387387d6dca98b5",
+        "type": "function",
+        "z": "68fd76ba2e5d1b23",
+        "name": "function 1",
+        "func": "let data = flow.get(\"saveData\") || [];\n\ndata.push(\n    {\n        \"Waktu\"         : new Date().toLocaleString(),\n        \"C\"          : msg.payload[1],\n        //\"F\"    : msg.payload[2],\n        //\"K\"        : msg.payload[3],\n        //\"Count\"         : flow.set('addData')\n    }\n)\n\nmsg.payload = data;\n\nflow.set(\"saveData\",data);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 500,
+        "wires": [
+            [
+                "ead717178481322e",
+                "56414d56d7989f1e",
+                "377bf633f7d98e5a"
+            ]
+        ]
+    },
+    {
+        "id": "d023c4e3cabef366",
+        "type": "change",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "saveData",
+                "pt": "flow",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58ceff7554863d31",
+        "type": "trigger",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "nul",
+        "duration": "1",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 310,
+        "y": 500,
+        "wires": [
+            [
+                "a387387d6dca98b5"
+            ]
+        ]
+    },
+    {
+        "id": "ead717178481322e",
+        "type": "debug",
+        "z": "68fd76ba2e5d1b23",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e1783a3aee3856c5",
+        "type": "ui_button",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "group": "2865e6ed54490fb3",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "RESET LOGGER",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "d023c4e3cabef366"
+            ]
+        ]
+    },
+    {
+        "id": "1c7b64591fd53487",
+        "type": "debug",
+        "z": "68fd76ba2e5d1b23",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 220,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "377bf633f7d98e5a",
+        "type": "excel",
+        "z": "68fd76ba2e5d1b23",
+        "name": "",
+        "file": "D:\\Project\\arduino\\SerialReading_MAX6675\\out.xlsx",
+        "x": 730,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f5ab6f588415954",
+        "type": "serial-port",
+        "serialport": "COM6",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "2865e6ed54490fb3",
+        "type": "ui_group",
+        "name": "Realtime Data",
+        "tab": "9bd38e7e05c3d7f8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b78b1c4b9795d451",
+        "type": "ui_group",
+        "name": "Realtime Grafik",
+        "tab": "9bd38e7e05c3d7f8",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3b65c30c023e7274",
+        "type": "ui_group",
+        "name": "Data Logger",
+        "tab": "9bd38e7e05c3d7f8",
+        "order": 3,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9bd38e7e05c3d7f8",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
