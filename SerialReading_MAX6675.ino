@@ -1,14 +1,3 @@
-/*
-  Average Thermocouple
-
-  Reads a temperature from a thermocouple based
-  on the MAX6675 driver and displays it in the default Serial.
-
-  https://github.com/YuriiSalimov/MAX6675_Thermocouple
-
-  Created by Yurii Salimov, May, 2019.
-  Released into the public domain.
-*/
 #include <Thermocouple.h>
 #include <MAX6675_Thermocouple.h>
 
@@ -18,14 +7,12 @@
 
 Thermocouple* thermocouple;
 
-// the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
 
   thermocouple = new MAX6675_Thermocouple(SCK_PIN, CS_PIN, SO_PIN);
 }
 
-// the loop function runs over and over again forever
 void loop() {
   // Reads temperature
   const double celsius = thermocouple->readCelsius();
@@ -42,5 +29,5 @@ void loop() {
   // Serial.print(fahrenheit);
   Serial.println("#");
 
-  delay(500); // optionally, only to delay the output of information in the example.
+  delay(500); 
 }
